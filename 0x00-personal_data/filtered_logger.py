@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """ loggoer """
+from typing import List
 import re
 
 
 def filter_datum(
-        fields: list[str],
+        fields: List[str],
         redaction: str,
-        message,
+        message: str,
         separator: str) -> str:
     """ filter_datum """
     for field in fields:
-        message = re.sub(rf"{field}=.*?{separator}",
-                         f"{field}={redaction}{separator}", message)
+        message = re.sub(
+            "{}=.*?{}".format(field, separator),
+            "{}={}{}".format(field, redaction, separator),
+            message)
     return message
