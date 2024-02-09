@@ -82,9 +82,6 @@ def main():
         logger.info(filtered_row)
     cursor.close()
     db.close()
-    print("\nFiltered fields:\n")
-    for field in PII_FIELDS:
-        print(field)
 
 
 if __name__ == "__main__":
