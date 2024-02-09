@@ -69,6 +69,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 def main():
     """ main """
+    logger = get_logger()
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
@@ -78,11 +79,7 @@ def main():
                 RedactingFormatter.REDACTION,
                 str(row),
                 RedactingFormatter.SEPARATOR)
-        print("[HOLBERTON] user_data INFO {}: {}\
-            ".format(logging.Formatter().formatTime(
-                    None,
-                    None,
-                    RedactingFormatter.FORMAT), filtered_row))
+        logger.info(filtered_row)
     cursor.close()
     db.close()
     print("\nFiltered fields:\n")
