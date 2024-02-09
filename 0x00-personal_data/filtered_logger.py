@@ -65,3 +65,30 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
         password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''))
     return db
+
+
+def main():
+    """ main """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    for row in cursor:
+        filtered_row = filter_datum(
+                PII_FIELDS,
+                RedactingFormatter.REDACTION,
+                str(row),
+                RedactingFormatter.SEPARATOR)
+        print("[HOLBERTON] user_data INFO {}: {}\
+            ".format(logging.Formatter().formatTime(
+                    None,
+                    None,
+                    RedactingFormatter.FORMAT), filtered_row))
+    cursor.close()
+    db.close()
+    print("\nFiltered fields:\n")
+    for field in PII_FIELDS:
+        print(field)
+
+
+if __name__ == "__main__":
+    main()
