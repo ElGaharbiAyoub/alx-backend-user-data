@@ -15,7 +15,7 @@ class SessionExpAuth(SessionAuth):
         """Constructor
         """
         self.session_duration = int(getenv('SESSION_DURATION', 0))
-    
+
     def create_session(self, user_id: str = None) -> str:
         """Create session method
         """
@@ -28,7 +28,7 @@ class SessionExpAuth(SessionAuth):
         }
         self.user_id_by_session_id[session_id] = session_dictionary
         return session_id
-    
+
     def user_id_for_session_id(
             self,
             session_id: str = None) -> str:
