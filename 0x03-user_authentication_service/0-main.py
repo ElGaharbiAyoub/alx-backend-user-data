@@ -103,24 +103,45 @@
 # =================== task 5 ====================
 # ================ register_user  =======================
 
+# """
+# Main file
+# """
+# from auth import Auth
+
+# email = 'me@me.com'
+# password = 'mySecuredPwd'
+
+# auth = Auth()
+
+# try:
+#     user = auth.register_user(email, password)
+#     print("successfully created a new user!")
+# except ValueError as err:
+#     print("could not create a new user: {}".format(err))
+
+# try:
+#     user = auth.register_user(email, password)
+#     print("successfully created a new user!")
+# except ValueError as err:
+#     print("could not create a new user: {}".format(err)) 
+
+
+# =================== task 8 ====================
+# ================ valid_login  =======================
+
 """
 Main file
 """
 from auth import Auth
 
-email = 'me@me.com'
-password = 'mySecuredPwd'
-
+email = 'bob@bob.com'
+password = 'MyPwdOfBob'
 auth = Auth()
 
-try:
-    user = auth.register_user(email, password)
-    print("successfully created a new user!")
-except ValueError as err:
-    print("could not create a new user: {}".format(err))
+auth.register_user(email, password)
 
-try:
-    user = auth.register_user(email, password)
-    print("successfully created a new user!")
-except ValueError as err:
-    print("could not create a new user: {}".format(err)) 
+print(auth.valid_login(email, password))
+
+print(auth.valid_login(email, "WrongPwd"))
+
+print(auth.valid_login("unknown@email", password))
