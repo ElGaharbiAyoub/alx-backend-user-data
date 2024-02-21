@@ -47,7 +47,7 @@ def login() -> str:
         session_id = AUTH.create_session(email)
         if session_id:
             return jsonify({"email": email, "message": "logged in"})
-    return abort(401)
+    abort(401)
 
 
 if __name__ == "__main__":
