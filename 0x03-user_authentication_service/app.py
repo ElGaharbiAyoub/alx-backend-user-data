@@ -48,7 +48,24 @@ def login() -> str:
 
     session_id = AUTH.create_session(email)
     if session_id:
-        return jsonify({"email": email, "message": "logged in"})
+        res = jsonify({"email": email, "message": "logged in"})
+        res.set_cookie("session_id", session_id)
+        return res
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """DELETE /sessions
+    JSON body:
+      - email
+      - session_id
+    Return: message
+    """
+    email = request.form.get('email')
+    session_id = request.form.get('session_id')
+    if not AUTH.destroy_session(email, session_id):
+        abort(403)
+    redirect('/')
 
 
 if __name__ == "__main__":
